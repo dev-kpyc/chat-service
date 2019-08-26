@@ -1,0 +1,8 @@
+dev-postgres:
+  enabled: true
+
+global:
+  postgresql:
+    postgresqlUsername: admin
+    postgresqlPassword: password
+    postgresqlDatabase: chat

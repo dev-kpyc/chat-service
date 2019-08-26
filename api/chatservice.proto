@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package chatservice;
+
+service User {
+  rpc createUser (CreateUserRequest) returns (CreateUserResponse) {}
+  rpc getUser (GetUserRequest) returns (GetUserResponse) {}
+}
+
+service ChatRoom {
+  rpc createChatRoom (CreateChatRoomRequest) returns (CreateChatRoomResponse) {}
+  rpc listChatRooms (ListChatRoomsRequest) returns (ListChatRoomsResponse) {}
+  rpc listOwnedChatRooms (ListChatRoomsRequest) returns (ListChatRoomsResponse) {}
+  rpc joinChatRoom (JoinChatRoomRequest) returns (JoinChatRoomResponse) {}
+  rpc leaveChatRoom (LeaveChatRoomRequest) returns (LeaveChatRoomResponse) {}
+}
+
+service Messaging {
+  rpc sendMessage (SendMessageRequest) returns (SendMessageResponse) {}
+  rpc getMessages (GetMessagesRequest) returns (GetMessagesResponse) {}
+}
+
+message CreateUserRequest {
+  string name = 1;
+}
+
+message CreateUserResponse {
+  int64 userID = 1;
+}
+
+message GetUserRequest {
+  int64 userID = 1;
+}
+
+message GetUserResponse {
+  string name = 1;
+}
+
+message CreateChatRoomRequest {
+  int64 userID = 1;
+  string chatRoomName = 2;
+}
+
+message CreateChatRoomResponse {
+  int64 chatRoomID = 1;
+}
+
+message ListChatRoomsRequest {
+  int64 userID = 1;
+}
+
+message ListChatRoomsResponse {
+  repeated ListChatRoom chatrooms = 1;
+}
+
+message ListChatRoom {
+  int64 id = 1;
+  string name = 2;
+}
+
+message JoinChatRoomRequest {
+  int64 userID = 1;
+  int64 chatRoomID = 2;
+}
+
+message JoinChatRoomResponse {
+}
+
+message LeaveChatRoomRequest {
+  int64 userID = 1;
+  int64 chatRoomID = 2;
+}
+
+message LeaveChatRoomResponse {
+}
+
+message SendMessageRequest {
+  int64 userID = 1;
+  int64 chatRoomID = 2;
+  string message = 3;
+}
+
+message SendMessageResponse {}
+
+message GetMessagesRequest {
+  int64 userID = 1;
+  int64 chatRoomID = 2;
+}
+
+message GetMessagesResponse {
+  repeated Message messages = 1;
+}
+
+message Message {
+  int64 senderID = 1;
+  string message = 2;
+}

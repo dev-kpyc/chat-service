@@ -1,0 +1,7 @@
+deployments/
+scripts/
+
+# Ignore test files
+**/*_test.go
+
+.vscode

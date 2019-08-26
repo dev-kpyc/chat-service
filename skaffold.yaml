@@ -1,0 +1,22 @@
+apiVersion: skaffold/v1beta13
+kind: Config
+build:
+  tagPolicy:
+    sha256: {}
+  artifacts:
+  - image: chatserver/latest
+deploy:
+  helm:
+    releases:
+    - name: chatserver
+      chartPath: deployments/chatserver
+      values:
+        image: chatserver/latest
+      valuesFiles:
+        - deployments/chatserver/values/local-dev.yaml
+portForward:
+- resourceType: deployment
+  resourceName: chatserver
+  namespace: default
+  port: 8080
+  localPort: 8082
